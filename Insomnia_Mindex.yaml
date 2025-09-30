@@ -1,0 +1,173 @@
+type: collection.insomnia.rest/5.0
+name: Mindex Code Challenge
+meta:
+  id: wrk_8ceb16644eeb4c59abffcb8678bd5136
+  created: 1759262033131
+  modified: 1759262033131
+  description: ""
+collection:
+  - name: Mindex Challenge App
+    meta:
+      id: fld_fe7ef29f3ea249d6a167a18f0a7795ec
+      created: 1758825222900
+      modified: 1759262378750
+      sortKey: -1758825222900
+      description: ""
+    children:
+      - url: localhost:8080/employee/{{ _.newEmployeeId }}
+        name: Get Employee by ID
+        meta:
+          id: req_d8db814085b64b798e86d534c30c2417
+          created: 1758825226526
+          modified: 1759262433083
+          isPrivate: false
+          description: ""
+          sortKey: -1759047284652.5
+        method: GET
+        parameters:
+          - id: pair_d1c49dd90b564b0b8eed233b97e0334b
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/employee/{{ _.newEmployeeId }}/reporting-structure
+        name: Get Reporting Structure by Employee
+        meta:
+          id: req_7f6f054919ba4cdc835d56415c2052bd
+          created: 1758825791698
+          modified: 1759262469380
+          isPrivate: false
+          description: ""
+          sortKey: -1758907714728.875
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/employee/{{ _.newEmployeeId }}/compensation
+        name: Get Compensation by ID
+        meta:
+          id: req_4a0b1db442cb47408f6d2ab03607efb6
+          created: 1758907521959
+          modified: 1759262458445
+          isPrivate: false
+          description: ""
+          sortKey: -1758907736147.75
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/employee/{{ _.newEmployeeId }}/compensation
+        name: Create Compensation by ID
+        meta:
+          id: req_0945ed40a49b415f8fcabc234593a59f
+          created: 1758907750427
+          modified: 1759262492030
+          isPrivate: false
+          description: ""
+          sortKey: -1758907750427
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"employeeId": "{{ _.newEmployeeId }}",
+            	"salary": 3.52,
+            	"effectiveDate": "1968-10-01"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/employee
+        name: Create Employee
+        meta:
+          id: req_91f12f5b13694f85b6688826070e9f48
+          created: 1759186818878
+          modified: 1759262363718
+          isPrivate: false
+          description: ""
+          sortKey: -1759186818878
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "firstName" : "Harry",
+            		"lastName": "Nilsson",
+                "position" : "The American",
+                "department" : "Schmilssoneering",
+                "directReports" : [
+                  {
+                    "employeeId" : "16a596ae-edd3-4847-99fe-c4518e82c86f"
+                  }
+                ]
+              }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        scripts:
+          afterResponse: >-
+            if (insomnia.response.code == 200) {
+            	insomnia.environment.set("newEmployeeId", insomnia.response.json().employeeId);
+            }
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_fb09a24607c0d80d4b28a748f6633b01d6bbb7cc
+    created: 1759262033138
+    modified: 1759262378746
+environments:
+  name: Base Environment
+  meta:
+    id: env_fb09a24607c0d80d4b28a748f6633b01d6bbb7cc
+    created: 1759262033135
+    modified: 1759262378750
+    isPrivate: false
+  data:
+    newEmployeeId: d1ea9a07-f910-44a0-ac2e-8461b5f06e97
