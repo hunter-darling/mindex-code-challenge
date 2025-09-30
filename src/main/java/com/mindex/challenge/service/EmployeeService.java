@@ -17,5 +17,4 @@ public interface EmployeeService {
 
   Compensation createCompensation(String id, Compensation compensation);
 
-  Compensation updateCompensation(String id, Compensation compensation);
 }

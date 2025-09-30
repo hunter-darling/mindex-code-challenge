@@ -39,18 +39,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(CompensationAlreadyExistsException.class)
-  public ResponseEntity<ErrorResponse> handleCompensationAlreadyExistsException(
-      CompensationAlreadyExistsException ex, WebRequest request) {
-    LOG.warn("Compensation already exists: {}", ex.getMessage());
-
-    ErrorResponse errorResponse = new ErrorResponse(
-        "COMPENSATION_ALREADY_EXISTS",
-        ex.getMessage());
-
-    return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
-  }
-
   @ExceptionHandler(InvalidRequestException.class)
   public ResponseEntity<ErrorResponse> handleInvalidRequestException(
       InvalidRequestException ex, WebRequest request) {

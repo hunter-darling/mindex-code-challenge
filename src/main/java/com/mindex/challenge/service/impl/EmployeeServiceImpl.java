@@ -5,7 +5,6 @@ import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.ReportingStructure;
-import com.mindex.challenge.exception.CompensationAlreadyExistsException;
 import com.mindex.challenge.exception.CompensationNotFoundException;
 import com.mindex.challenge.exception.EmployeeNotFoundException;
 import com.mindex.challenge.exception.InvalidRequestException;
@@ -94,17 +93,13 @@ public class EmployeeServiceImpl implements EmployeeService {
   public Compensation createCompensation(String id, Compensation compensation) {
     LOG.debug("Creating compensation for employee [{}]", id);
 
-    Employee employee = employeeRepository.findByEmployeeId(id);
-    if (employee == null) {
-      throw new EmployeeNotFoundException(id);
-    }
-
-    Compensation existingCompensation = compensationRepository.findCompensationByEmployeeId(id);
     if (!compensation.getEmployeeId().equals(id)) {
       throw new InvalidRequestException("EmployeeId in request body does not match employeeId in path");
     }
-    if (existingCompensation != null) {
-      throw new CompensationAlreadyExistsException(id);
+
+    Employee employee = employeeRepository.findByEmployeeId(id);
+    if (employee == null) {
+      throw new EmployeeNotFoundException(id);
     }
 
     if (compensation.getEffectiveDate() == null) {
@@ -112,23 +107,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     return compensationRepository.insert(compensation);
-  }
-
-  @Override
-  public Compensation updateCompensation(String id, Compensation compensation) {
-    LOG.debug("Updating compensation for employee [{}]", id);
-
-    Compensation existingCompensation = compensationRepository.findCompensationByEmployeeId(id);
-    if (existingCompensation == null) {
-      throw new CompensationNotFoundException(id);
-    }
-    if (!compensation.getEmployeeId().equals(id)) {
-      throw new InvalidRequestException("EmployeeId in request body does not match employeeId in path");
-    }
-
-    compensation.setEffectiveDate(LocalDate.now().toString());
-
-    return compensationRepository.save(compensation);
   }
 
   private int calculateNumberOfReports(Employee employee) {

@@ -61,10 +61,4 @@ public class EmployeeController {
     return employeeService.createCompensation(id, compensation);
   }
 
-  @PutMapping("/employee/{id}/compensation")
-  public Compensation updateCompensation(@PathVariable String id, @RequestBody Compensation compensation) {
-    LOG.debug("Received compensation update request for employee [{}]", id);
-    return employeeService.updateCompensation(id, compensation);
-  }
-
 }
