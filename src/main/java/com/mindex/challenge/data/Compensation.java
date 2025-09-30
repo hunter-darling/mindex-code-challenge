@@ -5,6 +5,9 @@ public class Compensation {
   private String effectiveDate;
   private String employeeId;
 
+  public Compensation() {
+  }
+
   public Compensation(double salary, String effectiveDate, String employeeId) {
     this.salary = salary;
     this.effectiveDate = effectiveDate;
